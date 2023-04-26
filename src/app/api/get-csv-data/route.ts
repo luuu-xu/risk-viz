@@ -2,16 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { parse } from 'csv-parse/sync';
 import { NextResponse } from 'next/server';
-
-interface CsvRecord {
-  assetName: string;
-  lat: number;
-  long: number;
-  businessCategory: string;
-  riskRating: number;
-  riskFactors: string;
-  year: number;
-}
+import { CsvRecord } from '@/app/types';
 
 async function parseCsvData(): Promise<CsvRecord[]> {
   const csvData = await loadSampleData();
@@ -56,7 +47,7 @@ export async function GET(request: Request): Promise<Response> {
   });
   
   // Adding random variation to the latitude and longitude of each asset
-  const modifiedDataArray = addVarianceToData(dataArray, 10);
+  const modifiedDataArray = addVarianceToData(dataArray, 1);
 
   return NextResponse.json(modifiedDataArray);
 }

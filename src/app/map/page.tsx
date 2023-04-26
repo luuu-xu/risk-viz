@@ -3,23 +3,14 @@
 import React, { use, useEffect } from 'react'
 import MapComponent from './mapComponent';
 import DecadeSlider from './decadeSlider';
+import { CsvRecord } from '../types';
 
 async function fetchData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/get-csv-data`);
   return res.json();
 }
 
-interface CsvRecord {
-  assetName: string;
-  lat: number;
-  long: number;
-  businessCategory: string;
-  riskRating: number;
-  riskFactors: string;
-  year: number;
-}
-
-function getDecadesFromCsvData(data: [CsvRecord]): number[] {
+function getDecadesFromCsvData(data: CsvRecord[]): number[] {
   const decades = data
     .map((dataPoint : CsvRecord) => dataPoint.year)
     .filter((year: number, index: number, self: any) => self.indexOf(year) === index)
@@ -34,7 +25,7 @@ export default function MapPage() {
   const data = use(dataPromise);
   const decades = getDecadesFromCsvData(data);
   const [decadeIndex, setDecadeIndex] = React.useState<number>(0);
-  const [decadeData, setDecadeData] = React.useState<[CsvRecord] | []>([]);
+  const [decadeData, setDecadeData] = React.useState<CsvRecord[] | []>([]);
 
   useEffect(() => {
      setDecadeData(data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex)));

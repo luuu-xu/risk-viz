@@ -10,11 +10,11 @@ export default function DecadeSlider({
   }
 
   return (
-    <form style={{height: 'auto'}}>
-      <label htmlFor="decadeRange" className="form-label">
+    <form className="container d-flex flex-row items-center p-2">
+      <label htmlFor="decadeRange" className="form-label basis-1/3 m-0">
         Select a decade {`(${decades.at(0)} - ${decades.at(-1)})`}: <b>{decades[decadeIndex]}</b>
       </label>
-      <input type="range" className="form-range" id="decadeRange"
+      <input type="range" className="form-range basis-2/3" id="decadeRange"
         min="0" max={decades.length - 1} step="1"
         onChange={handleSliderChange}
         list='decade-list'

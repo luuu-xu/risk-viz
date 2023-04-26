@@ -1,16 +1,7 @@
 import { GoogleMap, InfoWindowF, MarkerClustererF, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-
-interface CsvRecord {
-  assetName: string;
-  lat: number;
-  long: number;
-  businessCategory: string;
-  riskRating: number;
-  riskFactors: string;
-  year: number;
-}
+import { CsvRecord } from '../types';
 
 export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.Element {
   const containerStyle = {
@@ -18,12 +9,12 @@ export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.
     height: '100%'
   };
   
-  const center = {
+  const initialCenter = {
     lat: 43.664474,
     lng: -79.392398
-  };
+  } as google.maps.LatLngLiteral;
 
-  const zoom = 4;
+  const initialZoom = 7 as number;
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
@@ -32,7 +23,7 @@ export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.
   });
 
   // const [map, setMap] = React.useState(null)
-  const [mapCenter, setMapCenter] = React.useState(center as google.maps.LatLngLiteral);
+  const [mapCenter, setMapCenter] = React.useState(initialCenter as google.maps.LatLngLiteral);
 
   // const onLoad = React.useCallback(function callback(map: google.maps.Map) {
   //   // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -55,16 +46,18 @@ export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={mapCenter}
-      zoom={zoom}
+      zoom={initialZoom}
       // onLoad={onLoad}
       // onUnmount={onUnmount}
     >
       <MarkerCluster data={data} />
     </GoogleMap>
   ) : 
-    <Spinner animation='border' role='status'>
-      <span className='visually-hidden'>Loading...</span>
-    </Spinner>
+    <div className='h-100 w-100 d-grid justify-center items-center'>
+      <Spinner animation='border' role='status'>
+        <span className='visually-hidden'>Loading...</span>
+      </Spinner>
+    </div>
 }
 
 function MarkerCluster({ data }: { data: CsvRecord[] | [] }): JSX.Element {
@@ -101,9 +94,12 @@ function Marker({ dataPoint, clusterer }:{ dataPoint: CsvRecord, clusterer: any 
       position={markerPosition} 
       clusterer={clusterer}
       icon={
-        {path: google.maps.SymbolPath.CIRCLE,
-        strokeColor: markerIconColour,
-        scale: 6}
+        {
+          path: google.maps.SymbolPath.CIRCLE,
+          strokeColor: markerIconColour,
+          scale: 3,
+          strokeWeight: 15,
+        }
       }
       onMouseOver={() => {
         setShowInfoWindow(true);

@@ -9,7 +9,7 @@ import Graph from './graph/graph';
 import { filterData } from './lib/filterData';
 
 async function fetchData() {
-  const res = await fetch(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/get-csv-data`);
+  const res = await fetch(`/api/get-csv-data`);
   return res.json();
 }
 

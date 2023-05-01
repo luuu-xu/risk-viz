@@ -1,10 +1,17 @@
-import { GoogleMap, InfoWindowF, MarkerClustererF, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, InfoWindowF, MarkerClustererF, MarkerF, useJsApiLoader, useGoogleMap } from '@react-google-maps/api';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { CsvRecord } from '../types';
+import { CsvRecord, BoundsLatLng } from '../types';
 import { getRiskColor } from '../lib/riskColor';
 
-export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.Element {
+export default function MapComponent({ 
+  data,
+  setBoundsLatLng
+}: { 
+  data: CsvRecord[],
+  setBoundsLatLng: React.Dispatch<BoundsLatLng>
+}): JSX.Element {
+
   const containerStyle = {
     width: '100%',
     height: '100%'
@@ -15,28 +22,35 @@ export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.
     lng: -79.392398
   } as google.maps.LatLngLiteral;
 
-  const initialZoom = 7 as number;
+  const initialZoom = 4 as number;
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
   });
 
-  // const [map, setMap] = React.useState(null)
-  const [mapCenter, setMapCenter] = React.useState(initialCenter as google.maps.LatLngLiteral);
+  const [map, setMap] = React.useState<null | google.maps.Map>(null);
 
-  // const onLoad = React.useCallback(function callback(map: google.maps.Map) {
-  //   // This is just an example of getting and using the map instance!!! don't just blindly copy!
-  //   // const bounds = new window.google.maps.LatLngBounds(center);
-  //   // map.fitBounds(bounds);
-  //   // setMapCenter(map.getCenter());
-  //   // setMap(map);
-  // }, [])
+  const onLoad = React.useCallback(function callback(map: google.maps.Map) {
+    map.setCenter(initialCenter);
+    map.setZoom(initialZoom);
+    setMap(map);
+  }, [])
 
-  // const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
-  //   setMapCenter(map.getCenter() as any);
-  //   // setMap(null);
-  // }, [])
+  const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
+    setMap(null);
+  }, [])
+
+  const onBoundsChanged = () => {
+    const mapsBounds = map?.getBounds()?.toJSON();
+    const boundsLatLng : BoundsLatLng = {
+      north: Number(mapsBounds?.north),
+      south: Number(mapsBounds?.south),
+      west: Number(mapsBounds?.west),
+      east: Number(mapsBounds?.east)
+    };
+    setBoundsLatLng(boundsLatLng);
+  }
 
   if (loadError) {
     return <div>Error loading Google Maps...</div>
@@ -45,10 +59,11 @@ export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={mapCenter}
-      zoom={initialZoom}
-      // onLoad={onLoad}
-      // onUnmount={onUnmount}
+      // center={initialCenter}
+      // zoom={initialZoom}
+      onBoundsChanged={onBoundsChanged}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
     >
       <MarkerCluster data={data} />
     </GoogleMap>

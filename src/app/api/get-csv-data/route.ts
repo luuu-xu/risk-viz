@@ -49,7 +49,7 @@ export async function GET(request: Request): Promise<Response> {
   });
   
   // Adding random variation to the latitude and longitude of each asset
-  const modifiedDataArray = addVarianceToData(dataArray, 0.01);
+  const modifiedDataArray = addVarianceToData(dataArray, Number(process.env.DATA_VARIANCE));
 
   return NextResponse.json(modifiedDataArray);
 }

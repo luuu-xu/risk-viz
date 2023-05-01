@@ -1,13 +1,20 @@
-import { CsvRecord } from '../types';
+import { CsvRecord, BoundsLatLng } from '../types';
 
 export function filterData(
-  data: CsvRecord[], assetName: string, category: string, riskFactor: string
+  data: CsvRecord[], 
+  assetName: string, 
+  category: string, 
+  riskFactor: string,
+  boundsLatLng: BoundsLatLng
 ): CsvRecord[] {
   return data.filter((dataPoint: CsvRecord) => {
     const assetNameMatch = !assetName || dataPoint.assetName === assetName;
     const categoryMatch = !category || dataPoint.businessCategory === category;
     const riskFactorMatch = !riskFactor || dataPoint.riskFactors.includes(riskFactor);
-    return assetNameMatch && categoryMatch && riskFactorMatch;
+    const boundsLatLngMatch = !boundsLatLng || 
+      dataPoint.lat >= boundsLatLng.south && dataPoint.lat <= boundsLatLng.north && 
+      dataPoint.long >= boundsLatLng.west && dataPoint.long <= boundsLatLng.east;
+    return assetNameMatch && categoryMatch && riskFactorMatch && boundsLatLngMatch;
   });
 }
 
@@ -16,9 +23,13 @@ export function sortYearAscending(data: CsvRecord[]): CsvRecord[] {
 }
 
 export function filterAndSortData(
-  data: CsvRecord[], assetName: string, category: string, riskFactor: string
+  data: CsvRecord[], 
+  assetName: string, 
+  category: string, 
+  riskFactor: string,
+  boundsLatLng: BoundsLatLng
 ): CsvRecord[] 
   {
-  const filteredData = filterData(data, assetName, category, riskFactor);
+  const filteredData = filterData(data, assetName, category, riskFactor, boundsLatLng);
   return sortYearAscending(filteredData);
 }

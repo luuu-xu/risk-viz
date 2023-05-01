@@ -1,4 +1,4 @@
-import { CsvRecord } from "../types";
+import { CsvRecord, BoundsLatLng } from "../types";
 import { Chart, ChartArea, registerables } from 'chart.js';
 import React, { useEffect } from "react";
 Chart.register(...registerables);
@@ -8,22 +8,27 @@ import { filterAndSortData, sortYearAscending } from '../lib/filterData';
 import { makeBarData, makeLineData, BarData, LineData } from './makeGraphData';
 
 export default function Graph({ 
-  data, assetName, category, riskFactor
+  data, 
+  assetName, 
+  category, 
+  riskFactor, 
+  boundsLatLng
 } : {
   data: CsvRecord[], 
   assetName: string, 
   category: string, 
-  riskFactor: string 
+  riskFactor: string,
+  boundsLatLng: BoundsLatLng
 }) : JSX.Element {
   const [barData, setBarData] = React.useState<BarData[]>([]);
   const [lineData, setLineData] = React.useState<LineData[]>([]);
 
   useEffect(() => {
-    const newBarData = makeBarData(filterAndSortData(data, assetName, category, riskFactor));
-    const newLineData = makeLineData(filterAndSortData(data, assetName, category, riskFactor));
+    const newBarData = makeBarData(filterAndSortData(data, assetName, category, riskFactor, boundsLatLng));
+    const newLineData = makeLineData(filterAndSortData(data, assetName, category, riskFactor, boundsLatLng));
     setBarData(newBarData);
     setLineData(newLineData);
-  }, [assetName, category, riskFactor]);
+  }, [assetName, category, riskFactor, boundsLatLng]);
 
   return (
     <ChartReact

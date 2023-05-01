@@ -8,3 +8,10 @@ export interface CsvRecord {
   riskFactors: string;
   year: number;
 }
+
+export type BoundsLatLng = {
+  north: number,
+  south: number,
+  west: number
+  east: number,
+};

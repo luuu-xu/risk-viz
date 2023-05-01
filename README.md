@@ -47,6 +47,7 @@ The website includes the following pages:
 
 ## Screenshots
 ### IndexPage
+<img width="2240" alt="Screenshot 2023-05-01 at 15 30 11" src="https://user-images.githubusercontent.com/97932191/235517095-d2aea590-a46a-4f77-8629-f465981f4669.png">
 
 ## Contributing
 Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request.

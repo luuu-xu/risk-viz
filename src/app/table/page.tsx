@@ -1,9 +1,9 @@
 "use client";
 
-import React, { use, useEffect } from 'react'
-import MapComponent from './mapComponent';
-import DecadeSlider from './decadeSlider';
 import { CsvRecord } from '../types';
+import React, { use, useEffect } from 'react'
+import DecadeSlider from '../map/decadeSlider';
+import TableFilter from './tableFilter';
 
 async function fetchData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/get-csv-data`);
@@ -20,8 +20,7 @@ function getDecadesFromCsvData(data: CsvRecord[]): number[] {
 
 const dataPromise = fetchData();
 
-export default function MapPage() {
-  // const fetchedData = await fetchData();
+export default function TablePage(): JSX.Element {
   const data = use(dataPromise);
   const decades = getDecadesFromCsvData(data);
   const [decadeIndex, setDecadeIndex] = React.useState<number>(0);
@@ -34,7 +33,7 @@ export default function MapPage() {
   return (
     <>
       <DecadeSlider decadeIndex={decadeIndex} setDecadeIndex={setDecadeIndex} decades={decades} />
-      <MapComponent data={decadeData} />
+      {/* <TableFilter data={decadeData} /> */}
     </>
-  );
+  )
 }

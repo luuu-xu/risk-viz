@@ -71,8 +71,14 @@ function MarkerCluster({ data }: { data: CsvRecord[] | [] }): JSX.Element {
       options={mcOptions}
     >
       {(clusterer): any =>
-        data.map((dataPoint: CsvRecord): JSX.Element => {
-          return <Marker key={dataPoint.lat + dataPoint.long} dataPoint={dataPoint} clusterer={clusterer} />
+        data.map((dataPoint: CsvRecord, index): JSX.Element => {
+          return (
+            <Marker 
+              key={dataPoint.lat + dataPoint.long + index} 
+              dataPoint={dataPoint} 
+              clusterer={clusterer} 
+            />
+          );
         })
       }
     </MarkerClustererF>

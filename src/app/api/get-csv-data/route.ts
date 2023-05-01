@@ -42,12 +42,14 @@ export async function GET(request: Request): Promise<Response> {
   dataArray = dataArray.map((data: CsvRecord) => {
     return {
       ...data,
-      riskFactors: JSON.parse(data.riskFactors),
-    }
+      // riskFactors: JSON.parse(data.riskFactors),
+      riskFactors: Object.entries(JSON.parse(data.riskFactors)).map(([key, value]) => `${key}: ${value}`).join(', '),
+      // riskFactors: data.riskFactors.toString(),
+    };
   });
   
   // Adding random variation to the latitude and longitude of each asset
-  const modifiedDataArray = addVarianceToData(dataArray, 1);
+  const modifiedDataArray = addVarianceToData(dataArray, 0.01);
 
   return NextResponse.json(modifiedDataArray);
 }

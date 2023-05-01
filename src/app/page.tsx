@@ -1,6 +1,5 @@
 "use client";
 
-import Link from 'next/link';
 import { CsvRecord } from './types';
 import React, { use, useEffect } from 'react'
 import DecadeSlider from './map/decadeSlider';
@@ -37,10 +36,13 @@ export default function Home() {
   }, [decadeIndex]);
 
   return (
-    <main className='h-screen w-screen d-flex flex-col'>
-      <div className='d-flex flex-col h-50 overflow-auto'>
+    <main className='h-screen w-screen'>
+      <div className='h-1/2 d-flex flex-col'>
+        <MapComponent data={decadeData} />
         <DecadeSlider decadeIndex={decadeIndex} setDecadeIndex={setDecadeIndex} decades={decades} />
-        <div className='d-flex flex-row'>
+      </div>
+      <div className='d-flex flex-row w-100'>
+        <div className='basis-1/2'>
           <TableFilter 
             data={decadeData}
             assetName={assetName}
@@ -50,16 +52,15 @@ export default function Home() {
             setCategory={setCategory} 
             setRiskFactor={setRiskFactor}
           />
-          <MapComponent data={decadeData} />
         </div>
-      </div>
-      <div className='h-50'>
-        <Graph
-          data={data} 
-          assetName={assetName} 
-          category={category} 
-          riskFactor={riskFactor}
-        />
+        <div className='basis-1/2'>
+          <Graph
+            data={data} 
+            assetName={assetName} 
+            category={category} 
+            riskFactor={riskFactor}
+          />
+        </div>
       </div>
       {/* <Link href="map">Map</Link>
       <Link href="table">Table</Link>

@@ -258,7 +258,6 @@ export default function TableFilter({
 
   return (
     <div className="p-2">
-      <div className="h-2" />
       <table className='table table-hover'>
         <thead className='table-light'>
           {table.getHeaderGroups().map(headerGroup => (

@@ -7,9 +7,10 @@ import TableFilter from './table/tableFilter';
 import Map from './map/map';
 import Graph from './graph/graph';
 import { filterData } from './lib/filterData';
+import { getBaseUrl } from './lib/getBaseUrl';
 
 async function fetchData() {
-  const res = await fetch(`https://${process.env.VERCEL_URL}/api/get-csv-data`);
+  const res = await fetch(`${getBaseUrl()}/api/get-csv-data`);
   return res.json();
 }
 

@@ -1,10 +1,10 @@
 "use client";
 
 import { CsvRecord, BoundsLatLng } from './types';
-import React, { use, useEffect } from 'react'
-import DecadeSlider from './map/decadeSlider';
+import React from 'react'
+import DecadeSlider from './decadeSlider/decadeSlider';
 import TableFilter from './table/tableFilter';
-import MapComponent from './map/mapComponent';
+import Map from './map/map';
 import Graph from './graph/graph';
 import { filterData } from './lib/filterData';
 
@@ -24,7 +24,7 @@ function getDecadesFromCsvData(data: CsvRecord[]): number[] {
 const dataPromise = fetchData();
 
 export default function Home() {
-  const data = use(dataPromise);
+  const data = React.use(dataPromise);
   const decades = getDecadesFromCsvData(data);
   const [decadeIndex, setDecadeIndex] = React.useState<number>(0);
   const [decadeData, setDecadeData] = React.useState<CsvRecord[]>([]);
@@ -33,7 +33,7 @@ export default function Home() {
   const [riskFactor, setRiskFactor] = React.useState<string>("");
   const [boundsLatLng, setBoundsLatLng] = React.useState<BoundsLatLng | any>({});
 
-  useEffect(() => {
+  React.useEffect(() => {
     const newDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
     const newFilteredDecadeData = filterData(newDecadeData, assetName, category, riskFactor, boundsLatLng);
     setDecadeData(newFilteredDecadeData);
@@ -43,7 +43,7 @@ export default function Home() {
     <>
       <div className='h-1/2 w-100 mb-3 px-3'>
         <div className='h-100 d-flex flex-col bg-white shadow rounded'>
-          <MapComponent 
+          <Map 
             data={decadeData}
             setBoundsLatLng={setBoundsLatLng}
           />

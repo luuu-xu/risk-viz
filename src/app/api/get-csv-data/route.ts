@@ -42,9 +42,7 @@ export async function GET(request: Request): Promise<Response> {
   dataArray = dataArray.map((data: CsvRecord) => {
     return {
       ...data,
-      // riskFactors: JSON.parse(data.riskFactors),
       riskFactors: Object.entries(JSON.parse(data.riskFactors)).map(([key, value]) => `${key}: ${value}`).join(', '),
-      // riskFactors: data.riskFactors.toString(),
     };
   });
   

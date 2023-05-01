@@ -1,10 +1,10 @@
 import { CsvRecord, BoundsLatLng } from "../types";
-import { Chart, ChartArea, registerables } from 'chart.js';
-import React, { useEffect } from "react";
+import { Chart, registerables } from 'chart.js';
+import React from "react";
 Chart.register(...registerables);
 import { Chart as ChartReact } from "react-chartjs-2";
 import { getRiskGradient } from "../lib/riskColor";
-import { filterAndSortData, sortYearAscending } from '../lib/filterData';
+import { filterAndSortData } from '../lib/filterData';
 import { makeBarData, makeLineData, BarData, LineData } from './makeGraphData';
 
 export default function Graph({ 
@@ -23,7 +23,7 @@ export default function Graph({
   const [barData, setBarData] = React.useState<BarData[]>([]);
   const [lineData, setLineData] = React.useState<LineData[]>([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const newBarData = makeBarData(filterAndSortData(data, assetName, category, riskFactor, boundsLatLng));
     const newLineData = makeLineData(filterAndSortData(data, assetName, category, riskFactor, boundsLatLng));
     setBarData(newBarData);

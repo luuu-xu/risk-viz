@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { getRiskColor } from '../lib/riskColor';
 
 import {
@@ -91,7 +91,7 @@ export default function TableFilter({
   );
 
   // Setting States when column filters change
-  useEffect(() => {
+  React.useEffect(() => {
     // console.log(columnFilters);
     const assetNameColumnFilter = columnFilters.filter((columnFilter) => columnFilter.id === "assetName");
     setAssetName(assetNameColumnFilter[0]?.value as string);

@@ -36,13 +36,13 @@ export default function Home() {
   }, [decadeIndex]);
 
   return (
-    <main className='h-screen w-screen'>
-      <div className='h-1/2 d-flex flex-col'>
+    <main className='h-screen w-screen p-4 d-flex flex-col gap-4'>
+      <div className='h-1/2 w-100 d-flex flex-col shadow rounded'>
         <MapComponent data={decadeData} />
         <DecadeSlider decadeIndex={decadeIndex} setDecadeIndex={setDecadeIndex} decades={decades} />
       </div>
-      <div className='d-flex flex-row w-100'>
-        <div className='basis-1/2'>
+      <div className='h-1/2 w-100 d-flex flex-row gap-4'>
+        <div className='basis-2/3 h-100 overflow-auto rounded shadow p-4 pt-0'>
           <TableFilter 
             data={decadeData}
             assetName={assetName}
@@ -53,7 +53,7 @@ export default function Home() {
             setRiskFactor={setRiskFactor}
           />
         </div>
-        <div className='basis-1/2'>
+        <div className='basis-1/3 rounded shadow p-4'>
           <Graph
             data={data} 
             assetName={assetName} 
@@ -62,9 +62,6 @@ export default function Home() {
           />
         </div>
       </div>
-      {/* <Link href="map">Map</Link>
-      <Link href="table">Table</Link>
-      <Link href="graph">Graph</Link> */}
     </main>
   );
 }

@@ -257,9 +257,12 @@ export default function TableFilter({
   });
 
   return (
-    <div className="p-2">
+    // <div className="p-2">
+    <div>
       <table className='table table-hover'>
-        <thead className='table-light'>
+        {/* <thead className='table-light'> */}
+      {/* <table className='table-auto'> */}
+        <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => {

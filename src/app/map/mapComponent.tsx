@@ -2,6 +2,7 @@ import { GoogleMap, InfoWindowF, MarkerClustererF, MarkerF, useJsApiLoader } fro
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { CsvRecord } from '../types';
+import { getRiskColor } from '../lib/riskColor';
 
 export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.Element {
   const containerStyle = {
@@ -19,7 +20,6 @@ export default function MapComponent({ data }: { data: CsvRecord[] | [] }): JSX.
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
-    // libraries: ["visualization"],
   });
 
   // const [map, setMap] = React.useState(null)
@@ -124,19 +124,4 @@ function Marker({ dataPoint, clusterer }:{ dataPoint: CsvRecord, clusterer: any 
       </InfoWindowF>}
     </MarkerF>
   );
-}
-
-function getRiskColor( riskRating: number ): string {
-  const green = [50, 200, 10]; // RGB value for green
-  const red = [225, 15, 10]; // RGB value for red
-  
-  // Interpolate between green and red based on the risk rating
-  const color = [
-    Math.round(green[0] + (red[0] - green[0]) * riskRating),
-    Math.round(green[1] + (red[1] - green[1]) * riskRating),
-    Math.round(green[2] + (red[2] - green[2]) * riskRating),
-  ];
-  
-  // Format the color as a CSS RGB string
-  return `rgb(${color.join(',')})`;
 }

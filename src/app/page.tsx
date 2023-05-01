@@ -6,6 +6,7 @@ import DecadeSlider from './map/decadeSlider';
 import TableFilter from './table/tableFilter';
 import MapComponent from './map/mapComponent';
 import Graph from './graph/graph';
+import { filterData } from './lib/filterData';
 
 async function fetchData() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/get-csv-data`);
@@ -32,17 +33,21 @@ export default function Home() {
   const [riskFactor, setRiskFactor] = React.useState<string>("");
 
   useEffect(() => {
-     setDecadeData(data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex)));
-  }, [decadeIndex]);
+    const newDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
+    const newFilteredDecadeData = filterData(newDecadeData, assetName, category, riskFactor);
+    setDecadeData(newFilteredDecadeData);
+  }, [decadeIndex, assetName, category, riskFactor]);
 
   return (
-    <main className='h-screen w-screen p-4 d-flex flex-col gap-4'>
-      <div className='h-1/2 w-100 d-flex flex-col shadow rounded'>
-        <MapComponent data={decadeData} />
-        <DecadeSlider decadeIndex={decadeIndex} setDecadeIndex={setDecadeIndex} decades={decades} />
+    <>
+      <div className='h-1/2 w-100 mb-4 px-4'>
+        <div className='h-100 d-flex flex-col bg-white shadow rounded'>
+          <MapComponent data={decadeData} />
+          <DecadeSlider decadeIndex={decadeIndex} setDecadeIndex={setDecadeIndex} decades={decades} />
+        </div>
       </div>
-      <div className='h-1/2 w-100 d-flex flex-row gap-4'>
-        <div className='basis-2/3 h-100 overflow-auto rounded shadow p-4 pt-0'>
+      <div className='h-1/2 w-100 d-flex flex-row gap-4 px-4 mb-4'>
+        <div className='basis-2/3 h-100 overflow-auto bg-white rounded shadow p-4 pt-0'>
           <TableFilter 
             data={decadeData}
             assetName={assetName}
@@ -53,15 +58,15 @@ export default function Home() {
             setRiskFactor={setRiskFactor}
           />
         </div>
-        <div className='basis-1/3 rounded shadow p-4'>
+        <div className='basis-1/3 bg-white rounded shadow p-4'>
           <Graph
-            data={data} 
+            data={data}
             assetName={assetName} 
             category={category} 
             riskFactor={riskFactor}
           />
         </div>
       </div>
-    </main>
+    </>
   );
 }

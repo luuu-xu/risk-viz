@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { getRiskColor } from '../lib/riskColor';
 
 import {
   Column,
@@ -584,28 +585,3 @@ function RiskFactorCells(
     );
   }
 )};
-
-function getRiskColor( riskRating: number ): string {
-  const green = [50, 200, 10]; // RGB value for green
-  const yellow = [240, 240, 5]; // RGB value for yellow
-  const red = [225, 15, 10]; // RGB value for red
-  
-  // Interpolate between green and red based on the risk rating
-  if (riskRating < 0.5) {
-    const color = [
-      Math.round(green[0] + (yellow[0] - green[0]) * riskRating),
-      Math.round(green[1] + (yellow[1] - green[1]) * riskRating),
-      Math.round(green[2] + (yellow[2] - green[2]) * riskRating),
-    ];
-    // Format the color as a CSS RGB string
-    return `rgb(${color.join(',')})`;
-  } else {
-    const color = [
-      Math.round(yellow[0] + (red[0] - yellow[0]) * riskRating),
-      Math.round(yellow[1] + (red[1] - yellow[1]) * riskRating),
-      Math.round(yellow[2] + (red[2] - yellow[2]) * riskRating),
-    ];
-    // Format the color as a CSS RGB string
-    return `rgb(${color.join(',')})`;
-  }
-}

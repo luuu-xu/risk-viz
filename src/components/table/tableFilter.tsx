@@ -71,7 +71,7 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
 }
 
-const TableFilter = ({ 
+export default function TableFilter({ 
   data, 
   setAssetName, 
   setCategory, 
@@ -87,7 +87,7 @@ const TableFilter = ({
   assetName: string,
   category: string,
   riskFactor: string
-}): JSX.Element => {
+}): JSX.Element {
 
   console.log('table', data.length);
 
@@ -588,5 +588,3 @@ function RiskFactorCells(
     );
   }
 )};
-
-export default TableFilter;

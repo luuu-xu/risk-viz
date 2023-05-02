@@ -9,6 +9,8 @@ import Graph from '../components/graph/graph';
 import { filterData } from './lib/filterData';
 import { fetchData, fetchJSONData, getDecadesFromData } from './api/get-csv-data/getData';
 
+export const dynamic = 'force-dynamic'
+
 // const dataPromise = fetchData();
 const dataPromise = fetchJSONData();
 

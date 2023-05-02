@@ -9,7 +9,7 @@ import { getRiskGradient } from "../../app/lib/riskColor";
 import { filterAndSortData } from '../../app/lib/filterData';
 import { makeBarData, makeLineData, BarData, LineData } from './makeGraphData';
 
-const Graph = ({ 
+export default function Graph({ 
   data, 
   assetName, 
   category, 
@@ -21,7 +21,7 @@ const Graph = ({
   category: string, 
   riskFactor: string,
   boundsLatLng: BoundsLatLng
-}) : JSX.Element => {
+}) : JSX.Element {
 
   console.log('graph:', data.length);
 
@@ -70,5 +70,3 @@ function barChartRiskGradient(context: any) {
   }
   return getRiskGradient(ctx, chartArea.bottom, chartArea.top);
 }
-
-export default Graph;

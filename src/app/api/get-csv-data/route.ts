@@ -22,6 +22,7 @@ async function parseCsvData(): Promise<CsvRecord[]> {
 }
 
 async function loadSampleData(): Promise<string> {
+  console.log(path.join(process.cwd(), 'src/data/sample_data.csv'));
   const csvData = await fs.promises.readFile(
     path.join(process.cwd(), 'src/data/sample_data.csv'),
     'utf-8'
@@ -38,11 +39,14 @@ function addVarianceToData(data: CsvRecord[], variance: number): CsvRecord[] {
 }
 
 export async function GET(request: Request): Promise<Response> {
+  // console.log('host: ', request.headers.get('host'));
   let dataArray = await parseCsvData();
+  // console.log(dataArray);
   dataArray = dataArray.map((data: CsvRecord) => {
     return {
       ...data,
-      riskFactors: Object.entries(JSON.parse(data.riskFactors)).map(([key, value]) => `${key}: ${value}`).join(', '),
+      // riskFactors: Object.entries(JSON.parse(data.riskFactors)).map(([key, value]) => `${key}: ${value}`).join(', '),
+      riskFactors: data.riskFactors.replace(/[\{\}\"]/g, '').replace(/:/g, ':').replace(/,/g, ',')
     };
   });
   

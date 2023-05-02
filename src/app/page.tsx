@@ -7,26 +7,16 @@ import TableFilter from './table/tableFilter';
 import Map from './map/map';
 import Graph from './graph/graph';
 import { filterData } from './lib/filterData';
-import { getBaseUrl } from './lib/getBaseUrl';
+import { fetchData, fetchJSONData, getDecadesFromData } from './api/get-csv-data/getData';
 
-async function fetchData() {
-  const res = await fetch(`${getBaseUrl()}/api/get-csv-data`);
-  return res.json();
-}
-
-function getDecadesFromCsvData(data: CsvRecord[]): number[] {
-  const decades = data
-    .map((dataPoint : CsvRecord) => dataPoint.year)
-    .filter((year: number, index: number, self: any) => self.indexOf(year) === index)
-    .sort((a: number, b: number) => a - b);
-  return decades;
-}
-
-const dataPromise = fetchData();
+// const dataPromise = fetchData();
+const dataPromise = fetchJSONData();
 
 export default function Home() {
   const data = React.use(dataPromise);
-  const decades = getDecadesFromCsvData(data);
+  // const data = fetchJSONData();
+  console.log(data);
+  const decades = getDecadesFromData(data);
   const [decadeIndex, setDecadeIndex] = React.useState<number>(0);
   const [decadeData, setDecadeData] = React.useState<CsvRecord[]>([]);
   const [assetName, setAssetName] = React.useState<string>("");

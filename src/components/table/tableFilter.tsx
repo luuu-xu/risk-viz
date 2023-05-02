@@ -88,9 +88,10 @@ export default function TableFilter({
   category: string,
   riskFactor: string
 }): JSX.Element {
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+
+  console.log('table', data);
+
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   // Setting States when column filters change
   React.useEffect(() => {

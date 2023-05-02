@@ -2,10 +2,10 @@
 
 import { CsvRecord, BoundsLatLng } from './types';
 import React from 'react'
-import DecadeSlider from './decadeSlider/decadeSlider';
-import TableFilter from './table/tableFilter';
-import Map from './map/map';
-import Graph from './graph/graph';
+import DecadeSlider from '../components/decadeSlider/decadeSlider';
+import TableFilter from '../components/table/tableFilter';
+import Map from '../components/map/map';
+import Graph from '../components/graph/graph';
 import { filterData } from './lib/filterData';
 import { fetchData, fetchJSONData, getDecadesFromData } from './api/get-csv-data/getData';
 
@@ -15,6 +15,9 @@ const dataPromise = fetchJSONData();
 export default function Home() {
   const data = React.use(dataPromise);
   // const data = fetchJSONData();
+
+  console.log('homepage:', data);
+
   const decades = getDecadesFromData(data);
   const [decadeIndex, setDecadeIndex] = React.useState<number>(0);
   const [decadeData, setDecadeData] = React.useState<CsvRecord[]>([]);

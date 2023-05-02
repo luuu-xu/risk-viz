@@ -1,5 +1,5 @@
-import { CsvRecord } from '../types';
-import { getRiskColor } from '../lib/riskColor';
+import { CsvRecord } from '../../app/types';
+import { getRiskColor } from '../../app/lib/riskColor';
 import { InfoWindowF, MarkerClustererF, MarkerF } from '@react-google-maps/api';
 import React from 'react';
 

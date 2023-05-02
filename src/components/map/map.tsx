@@ -1,6 +1,6 @@
 "use client";
 
-import { CsvRecord, BoundsLatLng } from '../types';
+import { CsvRecord, BoundsLatLng } from '../../app/types';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';

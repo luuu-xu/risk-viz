@@ -1,4 +1,4 @@
-import { CsvRecord } from "../types";
+import { CsvRecord } from "../../app/types";
 
 export type BarData = {
   year: number;

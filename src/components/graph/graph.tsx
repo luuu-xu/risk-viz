@@ -1,12 +1,12 @@
 "use client";
 
-import { CsvRecord, BoundsLatLng } from "../types";
+import { CsvRecord, BoundsLatLng } from "../../app/types";
 import { Chart, registerables } from 'chart.js';
 import React from "react";
 Chart.register(...registerables);
 import { Chart as ChartReact } from "react-chartjs-2";
-import { getRiskGradient } from "../lib/riskColor";
-import { filterAndSortData } from '../lib/filterData';
+import { getRiskGradient } from "../../app/lib/riskColor";
+import { filterAndSortData } from '../../app/lib/filterData';
 import { makeBarData, makeLineData, BarData, LineData } from './makeGraphData';
 
 export default function Graph({ 
@@ -22,6 +22,9 @@ export default function Graph({
   riskFactor: string,
   boundsLatLng: BoundsLatLng
 }) : JSX.Element {
+
+  console.log('graph:', data);
+
   const [barData, setBarData] = React.useState<BarData[]>([]);
   const [lineData, setLineData] = React.useState<LineData[]>([]);
 

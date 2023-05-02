@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { getRiskColor } from '../lib/riskColor';
+import { getRiskColor } from '../../app/lib/riskColor';
 
 import {
   Column,
@@ -30,7 +30,7 @@ import {
   compareItems,
 } from '@tanstack/match-sorter-utils'
 
-import { CsvRecord } from '../types'
+import { CsvRecord } from '../../app/types'
 
 const columnHelper = createColumnHelper<CsvRecord>();
 

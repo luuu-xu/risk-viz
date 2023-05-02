@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { getRiskColor } from '../../app/lib/riskColor';
 
 import {
@@ -91,10 +91,10 @@ export default function TableFilter({
 
   console.log('table', data.length);
 
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   // Setting States when column filters change
-  React.useEffect(() => {
+  useEffect(() => {
     // console.log(columnFilters);
     const assetNameColumnFilter = columnFilters.filter((columnFilter) => columnFilter.id === "assetName");
     setAssetName(assetNameColumnFilter[0]?.value as string);
@@ -405,7 +405,7 @@ function Filter({
 
   const columnFilterValue = column.getFilterValue()
 
-  const sortedUniqueValues = React.useMemo(
+  const sortedUniqueValues = useMemo(
     () =>
       typeof firstValue === 'number'
         ? []
@@ -505,13 +505,13 @@ function DebouncedInput({
   onChange: (value: string | number) => void
   debounce?: number
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>) {
-  const [value, setValue] = React.useState(initialValue)
+  const [value, setValue] = useState(initialValue)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValue(initialValue)
   }, [initialValue])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timeout = setTimeout(() => {
       onChange(value)
     }, debounce)

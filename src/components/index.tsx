@@ -1,33 +1,31 @@
-"use client";
-
-import { CsvRecord, BoundsLatLng } from './types';
-import { use, useEffect, useState} from 'react'
-import DecadeSlider from '../components/decadeSlider/decadeSlider';
-import TableFilter from '../components/table/tableFilter';
-import Map from '../components/map/map';
-import Graph from '../components/graph/graph';
-import { filterData } from './lib/filterData';
-import { fetchData, fetchJSONData, getDecadesFromData } from './api/get-csv-data/getData';
+import { CsvRecord, BoundsLatLng } from '../app/types';
+import React from 'react'
+import DecadeSlider from './decadeSlider/decadeSlider';
+import TableFilter from './table/tableFilter';
+import Map from './map/map';
+import Graph from './graph/graph';
+import { filterData } from '../app/lib/filterData';
+import { fetchData, fetchJSONData, getDecadesFromData } from '../app/api/get-csv-data/getData';
+import data from '../data/sample_data.json';
 
 // const dataPromise = fetchData();
-const dataPromise = fetchJSONData();
+// const dataPromise = fetchJSONData();
 
 export default function Home() {
-  const data = use(dataPromise);
+  // const data = React.use(dataPromise);
   // const data = fetchJSONData();
 
   console.log('homepage:', data.length);
 
   const decades = getDecadesFromData(data);
-  const [decadeIndex, setDecadeIndex] = useState<number>(0);
-  const initialDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
-  const [decadeData, setDecadeData] = useState<CsvRecord[]>(initialDecadeData);
-  const [assetName, setAssetName] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [riskFactor, setRiskFactor] = useState<string>("");
-  const [boundsLatLng, setBoundsLatLng] = useState<BoundsLatLng | any>({});
+  const [decadeIndex, setDecadeIndex] = React.useState<number>(0);
+  const [decadeData, setDecadeData] = React.useState<CsvRecord[]>([]);
+  const [assetName, setAssetName] = React.useState<string>("");
+  const [category, setCategory] = React.useState<string>("");
+  const [riskFactor, setRiskFactor] = React.useState<string>("");
+  const [boundsLatLng, setBoundsLatLng] = React.useState<BoundsLatLng | any>({});
 
-  useEffect(() => {
+  React.useEffect(() => {
     const newDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
     const newFilteredDecadeData = filterData(newDecadeData, assetName, category, riskFactor, boundsLatLng);
     setDecadeData(newFilteredDecadeData);

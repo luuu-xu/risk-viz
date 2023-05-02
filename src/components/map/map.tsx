@@ -1,7 +1,7 @@
 "use client";
 
 import { CsvRecord, BoundsLatLng } from '../../app/types';
-import React from 'react';
+import { useState, useCallback } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import MarkerCluster from './markerCluster';
@@ -33,15 +33,15 @@ export default function Map({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
   });
 
-  const [map, setMap] = React.useState<null | google.maps.Map>(null);
+  const [map, setMap] = useState<null | google.maps.Map>(null);
 
-  const onLoad = React.useCallback(function callback(map: google.maps.Map) {
+  const onLoad = useCallback(function callback(map: google.maps.Map) {
     map.setCenter(initialCenter);
     map.setZoom(initialZoom);
     setMap(map);
   }, [])
 
-  const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
+  const onUnmount = useCallback(function callback(map: google.maps.Map) {
     setMap(null);
   }, [])
 

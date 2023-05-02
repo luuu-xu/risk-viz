@@ -15,7 +15,6 @@ const dataPromise = fetchJSONData();
 export default function Home() {
   const data = React.use(dataPromise);
   // const data = fetchJSONData();
-  console.log(data);
   const decades = getDecadesFromData(data);
   const [decadeIndex, setDecadeIndex] = React.useState<number>(0);
   const [decadeData, setDecadeData] = React.useState<CsvRecord[]>([]);

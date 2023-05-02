@@ -1,3 +1,5 @@
+"use client";
+
 import { CsvRecord, BoundsLatLng } from "../types";
 import { Chart, registerables } from 'chart.js';
 import React from "react";

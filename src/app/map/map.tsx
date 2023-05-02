@@ -1,3 +1,5 @@
+"use client";
+
 import { CsvRecord, BoundsLatLng } from '../types';
 import React from 'react';
 import { Spinner } from 'react-bootstrap';

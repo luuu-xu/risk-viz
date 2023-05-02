@@ -14,7 +14,7 @@ export default function Map({
   setBoundsLatLng: React.Dispatch<BoundsLatLng>
 }): JSX.Element {
 
-  console.log("map:", data);
+  console.log("map:", data.length);
 
   const containerStyle = {
     width: '100%',

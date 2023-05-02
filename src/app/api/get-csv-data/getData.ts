@@ -1,6 +1,5 @@
 import { getBaseUrl } from '@/app/lib/getBaseUrl';
 import { CsvRecord } from '@/app/types';
-import sample_data from '@/data/sample_data.json';
 
 export async function fetchData() {
   // console.log(`${getBaseUrl()}/api/get-csv-data`);
@@ -18,6 +17,6 @@ export function getDecadesFromData(data: CsvRecord[]): number[] {
 
 export async function fetchJSONData() {
   // console.log(`${getBaseUrl()}/api/get-json-data`);
-  const res = await fetch(`https://risk-viz-inky.vercel.app/api/get-json-data`, { cache: 'no-store' });
+  const res = await fetch(`https://risk-viz-inky.vercel.app/api/get-json-data`);
   return res.json();
 }

@@ -16,7 +16,7 @@ export default function Home() {
   const data = React.use(dataPromise);
   // const data = fetchJSONData();
 
-  console.log('homepage:', data);
+  console.log('homepage:', data.length);
 
   const decades = getDecadesFromData(data);
   const [decadeIndex, setDecadeIndex] = React.useState<number>(0);

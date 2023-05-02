@@ -6,13 +6,13 @@ import { Spinner } from 'react-bootstrap';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import MarkerCluster from './markerCluster';
 
-export default function Map({ 
+const Map = ({ 
   data,
   setBoundsLatLng
 }: { 
   data: CsvRecord[],
   setBoundsLatLng: React.Dispatch<BoundsLatLng>
-}): JSX.Element {
+}): JSX.Element => {
 
   console.log("map:", data.length);
 
@@ -78,3 +78,5 @@ export default function Map({
       </Spinner>
     </div>
 }
+
+export default Map;

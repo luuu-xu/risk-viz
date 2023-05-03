@@ -46,8 +46,8 @@ export default function Home() {
 
   return (
     <>
-      <div className='h-1/2 w-100 mb-3 px-3'>
-        <div className='h-100 d-flex flex-col bg-white shadow rounded'>
+      <div className='h-1/2 w-full mb-3 px-3'>
+        <div className='h-full d-flex flex-col bg-white shadow rounded'>
           {/* <div className='h-100 w-100'>
             <Map 
               data={decadeData}
@@ -64,8 +64,8 @@ export default function Home() {
             decades={decades} />
         </div>
       </div>
-      <div className='h-1/2 w-100 d-flex flex-row gap-3 px-3 mb-3'>
-        <div className='basis-2/3 h-100 overflow-auto bg-white rounded shadow p-3 pt-0'>
+      <div className='h-1/2 w-full d-flex flex-row gap-3 px-3 mb-3'>
+        <div className='basis-2/3 h-full overflow-auto bg-white rounded shadow p-3 pt-0'>
           <TableFilter 
             data={decadeData}
             assetName={assetName}

@@ -48,16 +48,16 @@ export default function Home() {
     <>
       <div className='h-1/2 w-100 mb-3 px-3'>
         <div className='h-100 d-flex flex-col bg-white shadow rounded'>
-          <div className='h-100 w-100'>
+          {/* <div className='h-100 w-100'>
             <Map 
               data={decadeData}
               setBoundsLatLng={setBoundsLatLng}
             />
-          </div>
-          {/* <Map 
+          </div> */}
+          <Map 
             data={decadeData}
             setBoundsLatLng={setBoundsLatLng}
-          /> */}
+          />
           <DecadeSlider 
             decadeIndex={decadeIndex} 
             setDecadeIndex={setDecadeIndex} 

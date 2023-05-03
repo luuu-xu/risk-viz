@@ -37,6 +37,8 @@ export default function Home() {
           <Map 
             data={decadeData}
             setBoundsLatLng={setBoundsLatLng}
+            setAssetName={setAssetName}
+            setCategory={setCategory}
           />
           <DecadeSlider 
             decadeIndex={decadeIndex} 

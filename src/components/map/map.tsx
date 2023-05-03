@@ -6,10 +6,14 @@ import MarkerCluster from './markerCluster';
 
 export default function Map({ 
   data,
-  setBoundsLatLng
+  setBoundsLatLng,
+  setAssetName,
+  setCategory
 }: { 
   data: CsvRecord[],
-  setBoundsLatLng: React.Dispatch<BoundsLatLng>
+  setBoundsLatLng: React.Dispatch<BoundsLatLng>,
+  setAssetName: React.Dispatch<string>,
+  setCategory: React.Dispatch<string>
 }): JSX.Element {
   
   const initialCenter = {
@@ -61,7 +65,11 @@ export default function Map({
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      <MarkerCluster data={data} />
+      <MarkerCluster 
+        data={data} 
+        setAssetName={setAssetName}
+        setCategory={setCategory}
+      />
     </GoogleMap>
   ) : 
     <div className='h-100 w-100 d-grid justify-center items-center'>

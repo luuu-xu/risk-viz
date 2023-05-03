@@ -3,7 +3,18 @@ import { getRiskColor } from '../../app/lib/riskColor';
 import { InfoWindowF, MarkerClustererF, MarkerF } from '@react-google-maps/api';
 import React from 'react';
 
-export default function MarkerCluster({ data }: { data: CsvRecord[] | [] }): JSX.Element {
+export default function MarkerCluster({ 
+  data,
+  setAssetName,
+  setCategory
+}: { 
+  data: CsvRecord[] | [],
+  setAssetName: React.Dispatch<string>,
+  setCategory: React.Dispatch<string>
+}): JSX.Element {
+
+  const [markerClicked, setMarkerClicked] = React.useState(false);
+
   const mcOptions = {
     imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
     minimumClusterSize: 10
@@ -19,7 +30,11 @@ export default function MarkerCluster({ data }: { data: CsvRecord[] | [] }): JSX
             <Marker 
               key={dataPoint.lat + dataPoint.long + index} 
               dataPoint={dataPoint} 
-              clusterer={clusterer} 
+              clusterer={clusterer}
+              setAssetName={setAssetName}
+              setCategory={setCategory}
+              markerClicked={markerClicked}
+              setMarkerClicked={setMarkerClicked}
             />
           );
         })
@@ -28,7 +43,22 @@ export default function MarkerCluster({ data }: { data: CsvRecord[] | [] }): JSX
   )
 }
 
-function Marker({ dataPoint, clusterer }:{ dataPoint: CsvRecord, clusterer: any }): JSX.Element {
+function Marker({ 
+  dataPoint, 
+  clusterer,
+  setAssetName,
+  setCategory,
+  markerClicked,
+  setMarkerClicked
+}:{ 
+  dataPoint: CsvRecord, 
+  clusterer: any,
+  setAssetName: React.Dispatch<string>,
+  setCategory: React.Dispatch<string>,
+  markerClicked: boolean,
+  setMarkerClicked: React.Dispatch<boolean>
+}): JSX.Element {
+
   const [showInfoWindow, setShowInfoWindow] = React.useState(false);
 
   const markerPosition = {
@@ -36,6 +66,18 @@ function Marker({ dataPoint, clusterer }:{ dataPoint: CsvRecord, clusterer: any 
     lng: dataPoint.long
   }
   const markerIconColour = getRiskColor(dataPoint.riskRating);
+
+  function handleClick(): void {
+    if (markerClicked) {
+      setAssetName('');
+      setCategory('');
+      setMarkerClicked(false);
+    } else {
+      setAssetName(dataPoint.assetName);
+      setCategory(dataPoint.businessCategory);
+      setMarkerClicked(true);
+    }
+  }
 
   return (
     <MarkerF 
@@ -56,6 +98,7 @@ function Marker({ dataPoint, clusterer }:{ dataPoint: CsvRecord, clusterer: any 
       onMouseOut={() => {
         setShowInfoWindow(false);
       }}
+      onClick={handleClick}
     >
       {showInfoWindow && <InfoWindowF
         position={markerPosition}

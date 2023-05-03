@@ -23,8 +23,6 @@ export default function Graph({
   boundsLatLng: BoundsLatLng
 }) : JSX.Element {
 
-  // console.log('graph:', data.length);
-
   const [barData, setBarData] = useState<BarData[]>([]);
   const [lineData, setLineData] = useState<LineData[]>([]);
 

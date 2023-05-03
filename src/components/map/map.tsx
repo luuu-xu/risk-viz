@@ -1,5 +1,3 @@
-"use client";
-
 import { CsvRecord, BoundsLatLng } from '../../app/types';
 import { useState, useCallback } from 'react';
 import { Spinner } from 'react-bootstrap';
@@ -13,13 +11,6 @@ export default function Map({
   data: CsvRecord[],
   setBoundsLatLng: React.Dispatch<BoundsLatLng>
 }): JSX.Element {
-
-  // console.log("map:", data.length);
-
-  // const containerStyle = {
-  //   width: '100%',
-  //   height: '100%'
-  // };
   
   const initialCenter = {
     lat: 43.664474,

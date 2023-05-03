@@ -89,8 +89,6 @@ export default function TableFilter({
   riskFactor: string
 }): JSX.Element {
 
-  // console.log('table', data.length);
-
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   // Setting States when column filters change

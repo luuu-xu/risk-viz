@@ -1,4 +1,4 @@
-Live: 
+Live: https://risk-viz-inky.vercel.app/
 
 # Risk Visualizer
 - This is a front-end data visualization project built on Next13.

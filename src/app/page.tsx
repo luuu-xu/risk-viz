@@ -16,7 +16,7 @@ export default function Home() {
   const data = use(dataPromise);
   // const data = fetchJSONData();
 
-  console.log('homepage:', data.length);
+  // console.log('homepage:', data.length);
 
   const decades = getDecadesFromData(data);
   const [decadeIndex, setDecadeIndex] = useState<number>(0);
@@ -28,12 +28,12 @@ export default function Home() {
   const [riskFactor, setRiskFactor] = useState<string>("");
   const [boundsLatLng, setBoundsLatLng] = useState<BoundsLatLng | any>({});
 
-  useEffect(() => {
-    const initialDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
+  // useEffect(() => {
+  //   const initialDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
 
-    console.log('home initialDecadeData', initialDecadeData.length);
-    setDecadeData(initialDecadeData);
-  }, []);
+  //   console.log('home initialDecadeData', initialDecadeData.length);
+  //   setDecadeData(initialDecadeData);
+  // }, []);
 
   useEffect(() => {
     const newDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <>
       <div className='h-1/2 w-full mb-3 px-3'>
-        <div className='h-full d-flex flex-col bg-white shadow rounded'>
+        <div className='h-full flex flex-col bg-white shadow rounded'>
           {/* <div className='h-100 w-100'>
             <Map 
               data={decadeData}
@@ -64,7 +64,7 @@ export default function Home() {
             decades={decades} />
         </div>
       </div>
-      <div className='h-1/2 w-full d-flex flex-row gap-3 px-3 mb-3'>
+      <div className='h-1/2 w-full flex flex-row gap-3 px-3 mb-3'>
         <div className='basis-2/3 h-full overflow-auto bg-white rounded shadow p-3 pt-0'>
           <TableFilter 
             data={decadeData}

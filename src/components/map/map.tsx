@@ -14,12 +14,12 @@ export default function Map({
   setBoundsLatLng: React.Dispatch<BoundsLatLng>
 }): JSX.Element {
 
-  console.log("map:", data.length);
+  // console.log("map:", data.length);
 
-  const containerStyle = {
-    width: '100%',
-    height: '100%'
-  };
+  // const containerStyle = {
+  //   width: '100%',
+  //   height: '100%'
+  // };
   
   const initialCenter = {
     lat: 43.664474,

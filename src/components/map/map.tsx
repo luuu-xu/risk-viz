@@ -62,7 +62,8 @@ export default function Map({
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={containerStyle}
+      // mapContainerStyle={containerStyle}
+      mapContainerClassName='h-100 w-100'
       // center={initialCenter}
       // zoom={initialZoom}
       onBoundsChanged={onBoundsChanged}

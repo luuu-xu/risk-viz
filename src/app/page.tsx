@@ -20,16 +20,27 @@ export default function Home() {
 
   const decades = getDecadesFromData(data);
   const [decadeIndex, setDecadeIndex] = useState<number>(0);
-  const initialDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
-  const [decadeData, setDecadeData] = useState<CsvRecord[]>(initialDecadeData);
+  // const initialDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
+  // const [decadeData, setDecadeData] = useState<CsvRecord[]>(initialDecadeData);
+  const [decadeData, setDecadeData] = useState<CsvRecord[]>([]);
   const [assetName, setAssetName] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [riskFactor, setRiskFactor] = useState<string>("");
   const [boundsLatLng, setBoundsLatLng] = useState<BoundsLatLng | any>({});
 
   useEffect(() => {
+    const initialDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
+
+    console.log('home initialDecadeData', initialDecadeData.length);
+    setDecadeData(initialDecadeData);
+  }, []);
+
+  useEffect(() => {
     const newDecadeData = data.filter((dataPoint: CsvRecord) => dataPoint.year === decades.at(decadeIndex));
     const newFilteredDecadeData = filterData(newDecadeData, assetName, category, riskFactor, boundsLatLng);
+
+    console.log('home newFitlteredDecadeData', newFilteredDecadeData.length);
+
     setDecadeData(newFilteredDecadeData);
   }, [decadeIndex, assetName, category, riskFactor, boundsLatLng]);
 

@@ -10,7 +10,7 @@ export default function DecadeSlider({
   }
 
   return (
-    <form className="container flex flex-row items-center p-2">
+    <form className="container flex flex-col lg:flex-row items-center p-2">
       <label 
         className="form-label basis-1/3 m-0"
         htmlFor="decadeRange" 

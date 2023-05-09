@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import MarkerCluster from './markerCluster';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import { update } from '@/redux/features/mapBoundsSlice';
 
 

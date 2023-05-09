@@ -1,6 +1,6 @@
 "use client";
 
-import { CsvRecord, BoundsLatLng } from "../../app/types";
+import { CsvRecord } from "../../app/types";
 import { Chart, registerables } from 'chart.js';
 import { useState, useEffect } from "react";
 Chart.register(...registerables);
@@ -9,7 +9,7 @@ import { getRiskGradient } from "../../app/lib/riskColor";
 import { filterAndSortData } from '../../app/lib/filterData';
 import { makeBarData, makeLineData, BarData, LineData } from './makeGraphData';
 
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux/hooks';
 
 export default function Graph({ 
   data, 

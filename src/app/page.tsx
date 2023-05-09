@@ -1,15 +1,14 @@
 "use client";
 
 import { CsvRecord } from './types';
-import { use, useEffect, useState, useMemo } from 'react';
 import { Spinner } from 'react-bootstrap';
 import DecadeSlider from '../components/decadeSlider/decadeSlider';
 import Table from '../components/table/table';
 import Map from '../components/map/map';
 import Graph from '../components/graph/graph';
 import { filterData } from './lib/filterData';
-import { fetchData, fetchJSONData, getDecadesFromData } from './api/get-csv-data/getData';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { getDecadesFromData } from './lib/getDecadesFromData';
+import { useAppSelector } from '@/redux/hooks';
 import { useGetDataQuery } from '@/redux/services/dataApi';
 
 // const dataPromise = fetchData();

@@ -3,7 +3,7 @@ import { getRiskColor } from '../../app/lib/riskColor';
 import { InfoWindowF, MarkerClustererF, MarkerF } from '@react-google-maps/api';
 import React from 'react';
 import { updateAssetName, updateCategory } from '@/redux/features/filtersSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 
 export default function MarkerCluster({ 
   data,

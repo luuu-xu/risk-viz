@@ -3,6 +3,7 @@ import path from 'path';
 import { parse } from 'csv-parse/sync';
 import { NextResponse } from 'next/server';
 import { CsvRecord } from '@/app/types';
+import { addVarianceToData } from '@/app/lib/addVarianceToData';
 
 async function parseCsvData(): Promise<CsvRecord[]> {
   const csvData = await loadSampleData();
@@ -28,14 +29,6 @@ async function loadSampleData(): Promise<string> {
     'utf-8'
   );
   return csvData;
-}
-
-function addVarianceToData(data: CsvRecord[], variance: number): CsvRecord[] {
-  return data.map((dataPoint: CsvRecord) => ({
-    ...dataPoint,
-    lat: dataPoint.lat + (Math.random() * 2 - 1) * variance,
-    long: dataPoint.long + (Math.random() * 2 - 1) * variance
-  }));
 }
 
 export async function GET(request: Request): Promise<Response> {

@@ -1,12 +1,19 @@
+import { set } from '@/redux/features/decadeIndexSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
 export default function DecadeSlider({ 
-  decadeIndex, setDecadeIndex, decades 
+  decades 
 }: { 
-  decadeIndex: number, setDecadeIndex: (decadeIndex: number) => void, decades: number[]
+  decades: number[]
 }) : 
   JSX.Element 
 {
+
+  const dispatch = useAppDispatch();
+  const decadeIndex = useAppSelector((state) => state.decadeIndexReducer.value);
+
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setDecadeIndex(parseInt(e.target.value));
+    dispatch(set(parseInt(e.target.value)));
   }
 
   return (

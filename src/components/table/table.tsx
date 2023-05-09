@@ -6,6 +6,8 @@ import { CsvRecord } from '../../app/types'
 import Filter from './filter';
 import { AssetNameCell, CategoryCell, RiskFactorCells } from './cells';
 import { fuzzyFilter } from './fuzzyFilter';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { updateAssetName, updateCategory, updateRiskFactor } from '@/redux/features/filtersSlice';
 
 import {
   createColumnHelper,
@@ -25,21 +27,12 @@ const columnHelper = createColumnHelper<CsvRecord>();
 
 export default function Table({ 
   data, 
-  setAssetName, 
-  setCategory, 
-  setRiskFactor, 
-  assetName,
-  category,
-  riskFactor
 }: { 
-  data: CsvRecord[], 
-  setAssetName: React.Dispatch<string>, 
-  setCategory: React.Dispatch<string>, 
-  setRiskFactor: React.Dispatch<string>,
-  assetName: string,
-  category: string,
-  riskFactor: string
+  data: CsvRecord[] | undefined,
 }): JSX.Element {
+
+  const dispatch = useAppDispatch();
+  const { assetName, category, riskFactor } = useAppSelector((state) => state.filtersReducer.value);
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -47,11 +40,11 @@ export default function Table({
   useEffect(() => {
     // console.log(columnFilters);
     const assetNameColumnFilter = columnFilters.filter((columnFilter) => columnFilter.id === "assetName");
-    setAssetName(assetNameColumnFilter[0]?.value as string);
+    dispatch(updateAssetName(assetNameColumnFilter[0]?.value as string));
     const categoryColumnFilter = columnFilters.filter((columnFilter) => columnFilter.id === "businessCategory");
-    setCategory(categoryColumnFilter[0]?.value as string);
+    dispatch(updateCategory(categoryColumnFilter[0]?.value as string));
     const riskFactorsColumnFilter = columnFilters.filter((columnFilter) => columnFilter.id === "riskFactors");
-    setRiskFactor(riskFactorsColumnFilter[0]?.value as string);
+    dispatch(updateRiskFactor(riskFactorsColumnFilter[0]?.value as string));
   }, [columnFilters]);
 
   const handleClickAssetName = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -188,7 +181,7 @@ export default function Table({
     ];
 
   const table = useReactTable({
-    data,
+    data : data as any,
     columns,
     filterFns: {
       fuzzy: fuzzyFilter,
@@ -240,7 +233,12 @@ export default function Table({
                         </div>
                         {header.column.getCanFilter() ? (
                           <div>
-                            <Filter column={header.column} table={table} setRiskFactor={setRiskFactor} />
+                            <Filter 
+                              column={header.column} 
+                              table={table} 
+                              // setRiskFactor={setRiskFactor} 
+                              // setRiskFactor={dispatch(updateRiskFactor)}
+                            />
                           </div>
                         ) : null}
                       </>

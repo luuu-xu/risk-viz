@@ -3,18 +3,17 @@ import { useState, useCallback } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import MarkerCluster from './markerCluster';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { update } from '@/redux/features/mapBoundsSlice';
+
 
 export default function Map({ 
   data,
-  setBoundsLatLng,
-  setAssetName,
-  setCategory
 }: { 
   data: CsvRecord[],
-  setBoundsLatLng: React.Dispatch<BoundsLatLng>,
-  setAssetName: React.Dispatch<string>,
-  setCategory: React.Dispatch<string>
 }): JSX.Element {
+
+  const dispatch = useAppDispatch();
   
   const initialCenter = {
     lat: 43.664474,
@@ -48,7 +47,7 @@ export default function Map({
       west: Number(mapsBounds?.west),
       east: Number(mapsBounds?.east)
     };
-    setBoundsLatLng(boundsLatLng);
+    dispatch(update(boundsLatLng));
   }
 
   if (loadError) {
@@ -67,8 +66,6 @@ export default function Map({
     >
       <MarkerCluster 
         data={data} 
-        setAssetName={setAssetName}
-        setCategory={setCategory}
       />
     </GoogleMap>
   ) : 

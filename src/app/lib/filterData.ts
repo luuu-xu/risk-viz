@@ -1,12 +1,15 @@
 import { CsvRecord, BoundsLatLng } from '../types';
 
 export function filterData(
-  data: CsvRecord[], 
+  data: CsvRecord[] | undefined, 
   assetName: string, 
   category: string, 
   riskFactor: string,
   boundsLatLng: BoundsLatLng
 ): CsvRecord[] {
+  if (!data) {
+    return [];
+  }
   return data.filter((dataPoint: CsvRecord) => {
     const assetNameMatch = !assetName || dataPoint.assetName === assetName;
     const categoryMatch = !category || dataPoint.businessCategory === category;
@@ -23,13 +26,16 @@ export function sortYearAscending(data: CsvRecord[]): CsvRecord[] {
 }
 
 export function filterAndSortData(
-  data: CsvRecord[], 
+  data: CsvRecord[] | undefined, 
   assetName: string, 
   category: string, 
   riskFactor: string,
   boundsLatLng: BoundsLatLng
 ): CsvRecord[] 
   {
+  if (!data) {
+    return [];
+  }
   const filteredData = filterData(data, assetName, category, riskFactor, boundsLatLng);
   return sortYearAscending(filteredData);
 }

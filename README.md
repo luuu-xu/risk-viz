@@ -36,6 +36,7 @@ The following dependencies are used in this project:
 - @tanstack/react-table: Headless UI for building powerful tables & data grids.
 - chart.js: Charting library that allows for the creation of various types of charts and graphs.
 - react-chartjs-2: Wrapper for Chart.js that allows for the creation of Chart.js charts in React applications.
+- react-redux: State management library.
 - bootstrap: CSS framework for building responsive and mobile-first websites.
 - react-bootstrap: UI library for React that provides pre-built Bootstrap components.
 - tailwindcss: Utility-first CSS framework that allows for rapid UI development.

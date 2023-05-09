@@ -10,7 +10,10 @@ export type LineData = {
   averageRiskRating: number;
 }
 
-export function makeBarData(data: CsvRecord[]): BarData[] {
+export function makeBarData(data: CsvRecord[] | undefined): BarData[] {
+  if (!data) {
+    return [];
+  }
   const groups = data.reduce((acc : any, obj) => {
     const { year, riskRating } = obj;
     if (acc[year]) {
@@ -27,7 +30,10 @@ export function makeBarData(data: CsvRecord[]): BarData[] {
   }));
 }
 
-export function makeLineData(data: CsvRecord[]): LineData[] {
+export function makeLineData(data: CsvRecord[] | undefined): LineData[] {
+  if (!data) {
+    return [];
+  }
   const groups = data.reduce((acc : any, obj) => {
     const { year, riskRating } = obj;
     if (acc[year]) {

@@ -2,15 +2,13 @@ import { CsvRecord } from '../../app/types';
 import { getRiskColor } from '../../app/lib/riskColor';
 import { InfoWindowF, MarkerClustererF, MarkerF } from '@react-google-maps/api';
 import React from 'react';
+import { updateAssetName, updateCategory } from '@/redux/features/filtersSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 export default function MarkerCluster({ 
   data,
-  setAssetName,
-  setCategory
 }: { 
-  data: CsvRecord[] | [],
-  setAssetName: React.Dispatch<string>,
-  setCategory: React.Dispatch<string>
+  data: CsvRecord[] | undefined | any,
 }): JSX.Element {
 
   const [markerClicked, setMarkerClicked] = React.useState(false);
@@ -25,14 +23,12 @@ export default function MarkerCluster({
       options={mcOptions}
     >
       {(clusterer): any =>
-        data.map((dataPoint: CsvRecord, index): JSX.Element => {
+        data.map((dataPoint: CsvRecord, index: number): JSX.Element => {
           return (
             <Marker 
               key={dataPoint.lat + dataPoint.long + index} 
               dataPoint={dataPoint} 
               clusterer={clusterer}
-              setAssetName={setAssetName}
-              setCategory={setCategory}
               markerClicked={markerClicked}
               setMarkerClicked={setMarkerClicked}
             />
@@ -46,18 +42,16 @@ export default function MarkerCluster({
 function Marker({ 
   dataPoint, 
   clusterer,
-  setAssetName,
-  setCategory,
   markerClicked,
   setMarkerClicked
 }:{ 
   dataPoint: CsvRecord, 
   clusterer: any,
-  setAssetName: React.Dispatch<string>,
-  setCategory: React.Dispatch<string>,
   markerClicked: boolean,
   setMarkerClicked: React.Dispatch<boolean>
 }): JSX.Element {
+
+  const dispatch = useAppDispatch();
 
   const [showInfoWindow, setShowInfoWindow] = React.useState(false);
 
@@ -69,12 +63,12 @@ function Marker({
 
   function handleClick(): void {
     if (markerClicked) {
-      setAssetName('');
-      setCategory('');
+      dispatch(updateAssetName(''));
+      dispatch(updateCategory(''));
       setMarkerClicked(false);
     } else {
-      setAssetName(dataPoint.assetName);
-      setCategory(dataPoint.businessCategory);
+      dispatch(updateAssetName(dataPoint.assetName));
+      dispatch(updateCategory(dataPoint.businessCategory));
       setMarkerClicked(true);
     }
   }

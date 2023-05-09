@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Providers } from '@/redux/provider';
 
 export const metadata = {
   title: 'Risk Ratings Visualizer',
@@ -14,10 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='lg:h-screen w-screen flex flex-col gap-3 bg-gray-100'>
-        <h1 className='text-xl font-bold top-0 m-0 p-4 py-2 bg-white shadow'>
-          Predictions of Climate Risk Ratings for Businesses in Canada
-        </h1>
-        {children}
+        <Providers>
+          <h1 className='text-xl font-bold top-0 m-0 p-4 py-2 bg-white shadow'>
+            Predictions of Climate Risk Ratings for Businesses in Canada
+          </h1>
+          {children}
+        </Providers>
       </body>
     </html>
   )

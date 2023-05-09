@@ -1,15 +1,18 @@
 import { Column, Table } from "@tanstack/react-table";
 import { useMemo, useState, useEffect } from "react";
+import { useAppDispatch } from '@/redux/hooks';
+import { updateRiskFactor } from '@/redux/features/filtersSlice';
 
 export default function Filter({
   column,
   table,
-  setRiskFactor
 }: {
   column: Column<any, unknown>
   table: Table<any>
-  setRiskFactor: (name: any) => void
 }) {
+
+  const dispatch = useAppDispatch();
+
   const firstValue = table
     .getPreFilteredRowModel()
     .flatRows[0]?.getValue(column.id)
@@ -29,9 +32,9 @@ export default function Filter({
         <DebouncedInput
           type="text"
           value={(columnFilterValue ?? '') as string}
-          onChange={value => {
+          onChange={(value) => {
             column.setFilterValue(value);
-            setRiskFactor(value);
+            dispatch(updateRiskFactor(value));
           }}
           placeholder={`Search...`}
           className="w-28 border shadow rounded"
@@ -65,8 +68,8 @@ function DebouncedInput({
   debounce = 500,
   ...props
 }: {
-  value: string | number
-  onChange: (value: string | number) => void
+  value: string
+  onChange: (value: string) => void
   debounce?: number
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>) {
   const [value, setValue] = useState(initialValue)

@@ -9,29 +9,26 @@ import { getRiskGradient } from "../../app/lib/riskColor";
 import { filterAndSortData } from '../../app/lib/filterData';
 import { makeBarData, makeLineData, BarData, LineData } from './makeGraphData';
 
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
 export default function Graph({ 
   data, 
-  assetName, 
-  category, 
-  riskFactor, 
-  boundsLatLng
 } : {
-  data: CsvRecord[], 
-  assetName: string, 
-  category: string, 
-  riskFactor: string,
-  boundsLatLng: BoundsLatLng
+  data: CsvRecord[] | undefined,
 }) : JSX.Element {
+
+  const mapBounds = useAppSelector((state) => state.mapBoundsReducer.value);
+  const { assetName, category, riskFactor } = useAppSelector((state) => state.filtersReducer.value);
 
   const [barData, setBarData] = useState<BarData[]>([]);
   const [lineData, setLineData] = useState<LineData[]>([]);
 
   useEffect(() => {
-    const newBarData = makeBarData(filterAndSortData(data, assetName, category, riskFactor, boundsLatLng));
-    const newLineData = makeLineData(filterAndSortData(data, assetName, category, riskFactor, boundsLatLng));
+    const newBarData = makeBarData(filterAndSortData(data, assetName, category, riskFactor, mapBounds));
+    const newLineData = makeLineData(filterAndSortData(data, assetName, category, riskFactor, mapBounds));
     setBarData(newBarData);
     setLineData(newLineData);
-  }, [assetName, category, riskFactor, boundsLatLng]);
+  }, [assetName, category, riskFactor, mapBounds]);
 
   return (
     <ChartReact
